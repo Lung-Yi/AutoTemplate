@@ -3,7 +3,7 @@ This is a data-preprocess tool that curates the reaction SMILES.
 
 The manuscript of this repository is in preparation.
 
-![alt text](abstract_figure.svg)
+![alt text](docs/abstract_figure.svg)
 
 ## Installation
 1. `git clone https://github.com/Lung-Yi/AutoTemplate.git`
