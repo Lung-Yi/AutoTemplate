@@ -1,0 +1,7 @@
+This project aims to recover and clean the reaction data which has following problems:
+(1) Leaving group atoms appear in reactant side but disappear in product site.
+    ==> recover them in the product site.
+(2) Split the ambigious enantiomers and stereoisomers.
+(3) Keep atom conservation.
+
+

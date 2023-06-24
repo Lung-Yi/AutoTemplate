@@ -1,0 +1,20 @@
+conda create --name autotemplate python=3.7
+
+pip install rdkit
+pip install rxnmapper
+pip install rdchiral
+pip install CGRTools
+
+conda install -c anaconda networkx
+conda install -c anaconda pandas
+pip install openpyxl
+conda install -c conda-forge matplotlib
+pip install py-mini-racer
+
+
+conda create --name at python=3.6
+
+pip install rxnmapper
+conda install -c conda-forge rdkit
+conda install -c anaconda pandas
+pip install openxyl

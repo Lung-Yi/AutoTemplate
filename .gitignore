@@ -1,0 +1,11 @@
+data/*/*.txt
+data/*/processed_data.pkl
+*.processed
+*.failed
+*.xlsx
+job/
+analyze_results.csv
+cgr_teset.ipynb
+difference.py
+diff.txt
+post_analysis_old.py
