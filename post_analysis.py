@@ -59,7 +59,7 @@ all_rxn_class = ["AdamsDecarboxylation",
                 "Friedel-CraftsAlkylation",
                 "GrignardReaction",
                 "HiyamaCoupling",
-                # "HuisgenCycloaddition",
+                "HuisgenCycloaddition",
                 "Hydrogenation",
                 "Kabachnik-FieldsReaction",
                 "KumadaCoupling",
@@ -67,11 +67,9 @@ all_rxn_class = ["AdamsDecarboxylation",
                 "NegishiCoupling",
                 "PausonKhandReaction",
                 "ReductiveAmination",
-                # "SubstitutionReaction",
                 "SuzukiCoupling",
                 "WittigReaction",
                 ]
-
 
 records = []
 

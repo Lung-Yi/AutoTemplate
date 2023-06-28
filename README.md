@@ -5,6 +5,10 @@ The manuscript of this repository is in preparation.
 
 ![alt text](docs/abstract_figure.svg)
 
+The experimental results for selected Reaxys dataset is:
+
+![alt text](docs/output.svg)
+
 ## Installation
 1. `git clone https://github.com/Lung-Yi/AutoTemplate.git`
 2. `cd AutoTemplate`
