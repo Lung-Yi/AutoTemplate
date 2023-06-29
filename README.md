@@ -11,7 +11,7 @@ The experimental results for selected Reaxys dataset is:
 
 ## Installation
 1. `git clone https://github.com/Lung-Yi/AutoTemplate.git`
-2. `cd AutoTemplate`
+2. `conda create --name autotemplate python=3.7`
 3. `pip install rxnmapper`
 4. `pip install rdchiral`
 5. `pip install CGRTools`
@@ -43,12 +43,6 @@ python auto_process.py \
     --radius 0 \
     --threshold 5
 ```
-
-(3) use PubChem and ChemSpider to double check the chemical names and emerge the names and smiles:
-1. `cd rxn_yield_context/preprocess_data`
-2. `python emerge.py --input_dir ../../data/reaxys_output_local/unprocessed_class --output_dir ../../data/reaxys_output_local/label_processed`
-3. `python manually_modify.py --target_dir ../../data/reaxys_output_local/label_processed`
-
 ## Examine the preprocessed results.
 ```
 python post_analysis.py
