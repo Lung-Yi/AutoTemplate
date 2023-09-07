@@ -26,7 +26,7 @@ The experimental results for selected Reaxys dataset is:
 ### 1. Prepare the dataset
 Check all the directories in ./data_reaxys/
 
-All types of the reaction have their corresponding Reaction ID recoreds in the (.txt) files. Please download the reaction condition files (.xlsx) on https://www.reaxys.com/#/search/quick
+All types of the reaction have their corresponding Reaction ID records in the (.txt) files. Please download the files (.xlsx) on https://www.reaxys.com/#/search/quick
 
 ### 2. Preprocess the dataset
 (1) use RXNMapper for atom-mapping
