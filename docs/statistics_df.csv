@@ -1,0 +1,21 @@
+,Reaction type,No. of reactions,No. of universal templates,Residual rate,Time elapsed
+0,AdamsDecarboxylation,2636,54,62.3%,18 mins
+1,Baylis-HillmanReaction,7507,84,81.3%,48 mins
+2,Buchwald-HartwigCross-Coupling,18341,96,90.7%,1 hrs 7 mins
+3,Chan_LamCoupling,6885,43,92.1%,10 mins
+4,DielsAlder,18757,258,74.8%,7 hrs 16 mins
+5,FischerIndoleSynthesis,6841,28,85.9%,8 mins
+6,Friedel-CraftsAcylation,10095,118,82.9%,1 hrs 47 mins
+7,Friedel-CraftsAlkylation,17248,164,81.3%,6 hrs 10 mins
+8,GrignardReaction,13530,154,73.2%,10 hrs 25 mins
+9,HiyamaCoupling,4089,106,81.7%,1 hrs 3 mins
+10,HuisgenCycloaddition,54183,144,94.1%,160 hrs 44 mins
+11,Hydrogenation,41217,306,69.4%,12 hrs 15 mins
+12,Kabachnik-FieldsReaction,5575,14,91.4%,4 mins
+13,KumadaCoupling,16371,82,89.1%,3 hrs 5 mins
+14,MannichReaction,29698,271,86.0%,7 hrs 53 mins
+15,NegishiCoupling,10909,146,84.9%,4 hrs 10 mins
+16,PausonKhandReaction,2703,19,72.4%,9 mins
+17,ReductiveAmination,50406,16,97.1%,45 mins
+18,SuzukiCoupling,184219,216,98.2%,18 hrs 35 mins
+19,WittigReaction,16337,94,84.8%,1 hrs 32 mins

@@ -48,7 +48,7 @@ python auto_process.py \
 python post_analysis.py
 ```
 
-## Super general reaction template extraction tutorial
+## Universal reaction template extraction tutorial
 For further details about the reaction template extraction, please refer to:
 
 scripts/examples.ipynb
