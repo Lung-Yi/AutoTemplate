@@ -379,7 +379,8 @@ def get_fragments_for_changed_atoms(mols, changed_atom_tags, radius=0,
 
 def extract_from_rxn_smiles(rxn_smiles: str, radius = 0):
     """
-    Extract retro template from atom-mapping reaction smiles
+    Extract retro template from atom-mapping reaction smiles. 
+    This is the generic reaction template extraction.
     """
     reactants = rxn_smiles.split('>')[0]
     products = rxn_smiles.split('>')[-1]
