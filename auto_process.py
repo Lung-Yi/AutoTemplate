@@ -7,7 +7,7 @@ import pickle
 
 from collections import Counter
 from autotemplate.extract_utils import extract_from_rxn_smiles, canon_remap
-from autotemplate.run_utils import ReassignMapping, rdchiralRunText_modified, RemoveReagent, clearIsotope
+from autotemplate.run_utils import ReassignMapping, rdchiralRunText_modified, RemoveReagent, clearIsotope, build_removed_reagents_dict
 from autotemplate.graph_utils import mapping_for_gold_multiple_smiles, find_unique_templates_dict
 
 def count_change(rxn_smiles):
@@ -126,6 +126,8 @@ if __name__ == '__main__':
                         default=5)
     parser.add_argument('--skip_topn_templates',type=int,
                         default=3)
+    parser.add_argument('--retain_reagents',type=bool,
+                        default=True)
     # parser.add_argument('--verbose', default=False, type=lambda x: (str(x).lower() in ['true','1', 'yes'])) # Whether to print failed prediction information
     args = parser.parse_args()
 
@@ -138,7 +140,19 @@ if __name__ == '__main__':
     (1) same molecule appear in both reactant and product sites. 
     (2) unmapped molecules in both reactant and product sites. """
     print('Removing reagent...')
-    input_file = [(RemoveReagent(clearIsotope(line.split('\t')[0])), line.split('\t')[1].strip('\n')) for line in tqdm(input_file)]
+    input_file = [[clearIsotope(line.split('\t')[0]), line.split('\t')[1].strip('\n')] for line in input_file]
+    removed_reagents_list = []
+    for i, (rxn_smiles, reaction_id) in enumerate(input_file):
+        if args.retain_reagents:
+            processed_rxn_smiles, removed_reagents = RemoveReagent(rxn_smiles, retain_reagents=args.retain_reagents)
+            removed_reagents_list.append(removed_reagents)
+        else:
+            processed_rxn_smiles = RemoveReagent(rxn_smiles, retain_reagents=args.retain_reagents)
+        input_file[i][0] = processed_rxn_smiles
+
+    if args.retain_reagents:
+        id2reagent_dict = build_removed_reagents_dict(list(zip(*input_file))[1], removed_reagents_list)
+        print(id2reagent_dict)
     
     """ Analyze the reaction change """
             
@@ -226,10 +240,18 @@ if __name__ == '__main__':
     for i in range(len(data)):
         rxn_smiles = data[i]['final rxn_smiles']
         if rxn_smiles:
-            rxn_smiles = RemoveReagent(rxn_smiles)
+            if args.retain_reagents:
+                reagents = id2reagent_dict[data[i]['reaxys id']]
+                if reagents:
+                    rxn_smiles += "."+reagents
             g.write(rxn_smiles + '\t' + data[i]['reaxys id'] + '\n')
         else:
-            h.write(data[i]['rxn_smiles']  + '\t' + data[i]['reaxys id'] + '\n')
+            no_processed_smiles = data[i]['rxn_smiles']
+            if args.retain_reagents:
+                reagents = id2reagent_dict[data[i]['reaxys id']]
+                if reagents:
+                    no_processed_smiles += "."+reagents
+            h.write(no_processed_smiles + '\t' + data[i]['reaxys id'] + '\n')
     g.close()
     h.close()
     

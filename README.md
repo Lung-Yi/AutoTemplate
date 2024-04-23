@@ -12,14 +12,15 @@ The experimental results for selected Reaxys dataset is:
 ## Installation
 1. `git clone https://github.com/Lung-Yi/AutoTemplate.git`
 2. `conda create --name autotemplate python=3.7`
-3. `pip install rxnmapper`
-4. `pip install rdchiral`
-5. `pip install CGRTools`
-6. `conda install -c anaconda networkx`
-7. `conda install -c anaconda pandas`
-8. `pip install openpyxl`
-9. `conda install -c conda-forge matplotlib`
-10. `pip install py-mini-racer`
+3. `conda activate autotemplate`
+4. `pip install rxnmapper`
+5. `pip install rdchiral`
+6. `pip install CGRTools`
+7. `conda install -c anaconda networkx`
+8. `conda install -c anaconda pandas`
+9. `pip install openpyxl`
+10. `conda install -c conda-forge matplotlib`
+11. `pip install py-mini-racer`
 
 
 ## Preprocess the Reaxys dataset

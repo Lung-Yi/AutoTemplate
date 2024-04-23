@@ -18,9 +18,10 @@ def CalculateNumHs(atom):
     valence = atom_valence_dict[atom.GetSymbol()]
     return int(valence - sum([bond.GetBondTypeAsDouble() for bond in atom.GetBonds()]) - abs(atom.GetFormalCharge()))
 
-def RemoveReagent(rxn_smiles, select_major_product = False):
+def RemoveReagent(rxn_smiles, select_major_product = False, retain_reagents = True):
     r, p = rxn_smiles.split('>>')
     r = r.split('.')
+    removed_reagents = []
     # if '.' not in p:
     #     p = Chem.MolFromSmiles(p)
     #     p_map_total = [x.GetAtomMapNum() for x in p.GetAtoms()]
@@ -47,7 +48,9 @@ def RemoveReagent(rxn_smiles, select_major_product = False):
     p2 = p.copy()
     for m in r2:
         r_map = [a.GetAtomMapNum() for a in m.GetAtoms()]
-        if set(r_map) & set(p_map_total) == set(): r.remove(m)
+        if set(r_map) & set(p_map_total) == set(): 
+            r.remove(m)
+            removed_reagents.append(Chem.MolToSmiles(m))
     
     for m in p2:
         p_map = [a.GetAtomMapNum() for a in m.GetAtoms()]
@@ -55,9 +58,15 @@ def RemoveReagent(rxn_smiles, select_major_product = False):
     
     if select_major_product:
         p = sorted(p, key= lambda x: x.GetNumAtoms(),reverse=True)[0] # select the major product
-        return '.'.join([Chem.MolToSmiles(m) for m in r]) +'>>'+ Chem.MolToSmiles(p)
+        if retain_reagents:
+            return '.'.join([Chem.MolToSmiles(m) for m in r]) +'>>'+ Chem.MolToSmiles(p), '.'.join(removed_reagents)
+        else:
+            return '.'.join([Chem.MolToSmiles(m) for m in r]) +'>>'+ Chem.MolToSmiles(p)
     else:
-        return '.'.join([Chem.MolToSmiles(m) for m in r]) +'>>'+ '.'.join([Chem.MolToSmiles(x) for x in p])
+        if retain_reagents:
+            return '.'.join([Chem.MolToSmiles(m) for m in r]) +'>>'+ '.'.join([Chem.MolToSmiles(x) for x in p]), '.'.join(removed_reagents)
+        else:
+            return '.'.join([Chem.MolToSmiles(m) for m in r]) +'>>'+ '.'.join([Chem.MolToSmiles(x) for x in p])
 
 
 def ReassignMapping(smiles, return_NumAtom=False, iso=False):
@@ -222,6 +231,13 @@ def rdchiralRunText_modified(reaction_smarts, reactant_smiles, append_reagent=Fa
             reagents_list = ['']*len(smiles_list)
         return smiles_list, reagents_list
     return list(set(smiles_list))
+
+def build_removed_reagents_dict(id_list, reagents_list):
+    """Build the one-to-one mapping for reaction ID -> removed reagents. """
+    mapping_dict = dict()
+    for id_, reagents in zip(id_list, reagents_list):
+        mapping_dict.update({id_: reagents})
+    return mapping_dict
 
 if __name__ == "__main__":
     test_reaction = "[CH3:1][C:2]([CH3:3])([CH3:4])[O:5][C:6](=[O:7])[NH:8][OH:9].[CH:10]1=[CH:11][CH:12]=[CH:13][CH2:14][CH2:15]1>>[CH3:1][C:2]([CH3:3])([CH3:4])[O:5][C:6](=[O:7])[N:8]1[O:9][C@H:10]2[CH:11]=[CH:12][C@@H:13]1[CH2:14][CH2:15]2"

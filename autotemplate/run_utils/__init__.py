@@ -1,2 +1,2 @@
 from .run_functions import RemoveReagent, rdchiralRunText_modified, ReassignMapping
-from .run_functions import clearIsotope
+from .run_functions import clearIsotope, build_removed_reagents_dict
