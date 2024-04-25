@@ -22,6 +22,10 @@ The experimental results for selected Reaxys dataset is:
 10. `conda install -c conda-forge matplotlib`
 11. `pip install py-mini-racer`
 
+Alternatively, you can choose to install the environment by the .yml file:
+```
+conda env create -f docs/environment.yml
+```
 
 ## Preprocess the Reaxys dataset
 ### 1. Prepare the dataset
