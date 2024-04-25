@@ -190,7 +190,7 @@ def get_changed_atoms(reactants, products):
 
 def convert_atom_to_wildcard(atom):
     '''This function is modified. Only the most general information is kept. (Atom number)
-    The degree of hydrogen is removed. '''
+    The degree of hydrogen is removed. This is generic reaction template version.'''
     
     if ':' in atom.GetSmarts():
         symbol = '[#{}:{}]'.format(atom.GetAtomicNum(), atom.GetProp('molAtomMapNumber'))
@@ -198,6 +198,20 @@ def convert_atom_to_wildcard(atom):
         symbol = '[#{}]'.format(atom.GetAtomicNum())
 
     return symbol
+
+# def convert_atom_to_wildcard(atom):
+#     '''Distinguish the difference between aromatic and aliphatic atom. (for supporting information.)'''
+#     atom_symbol = atom.GetSymbol()
+#     if atom.GetIsAromatic():
+#         atom_symbol = atom_symbol.lower()
+
+#     if ':' in atom.GetSmarts():
+#         symbol = '[{}:{}]'.format(atom_symbol, atom.GetProp('molAtomMapNumber'))
+#     else:
+#         symbol = '[{}]'.format(atom_symbol)
+
+#     return symbol
+
 
 def get_strict_smarts_for_atom(atom):
     '''
@@ -229,6 +243,39 @@ def get_strict_smarts_for_atom(atom):
             symbol = symbol.replace(']', ';H{}]'.format(num_hydrogen))
 
     return symbol
+
+# def get_strict_smarts_for_atom(atom):
+#     '''
+#     Distinguish the difference between aromatic and aliphatic atom. (for supporting information.)
+#     # 2024/04/23: Compare.
+#     '''
+#     atom_symbol = atom.GetSymbol()
+#     if atom.GetIsAromatic():
+#         atom_symbol = atom_symbol.lower()
+
+#     if ':' in atom.GetSmarts():
+#         symbol = '[{}:{}]'.format(atom_symbol, atom.GetProp('molAtomMapNumber'))
+#     else:
+#         symbol = '[{}]'.format(atom_symbol)
+    
+#     charge = atom.GetFormalCharge()
+#     if charge != 0:
+#         charge_symbol = '+' if (charge >= 0) else '-'
+#         charge_symbol += '{}'.format(abs(charge))
+#         if ':' in symbol: 
+#             symbol = symbol.replace(':', ';{}:'.format(charge_symbol))
+#         else:
+#             symbol = symbol.replace(']', ';{}]'.format(charge_symbol))
+    
+#     # if the atom is radical, the number of hydrogen must be included in the template.
+#     if atom.GetNumRadicalElectrons() != 0:
+#         num_hydrogen = atom.GetNumExplicitHs()
+#         if ':' in symbol: 
+#             symbol = symbol.replace(':', ';H{}:'.format(num_hydrogen))
+#         else:
+#             symbol = symbol.replace(']', ';H{}]'.format(num_hydrogen))
+
+#     return symbol
 
 def get_fragments_for_changed_atoms(mols, changed_atom_tags, radius=0, 
     category='reactants', expansion=[]):

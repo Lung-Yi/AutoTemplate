@@ -42,14 +42,18 @@ python rxnmapper_mapping.py --input_dir data_reaxys/${RXN} \
 python auto_process.py \
     --input_file data/${RXN}/MappingResult_${RXN}.txt \
     --radius 0 \
-    --threshold 5
+    --threshold 5 --npus 1
 ```
+NOTE: The default preprocessing function would remove the spectator molecules (help conduct the reaction but do not contribute any atom) in processed reaction SMILES. To keep those molecules in processed reaction SMILES, please add the argument in the above script: `--retain_reagents`.
+
+NOTE: We recommend using multiple cpu to accelerate the data preprocessing. Please change this argument: `--ncpus`.
+
 ## Examine the preprocessed results.
 ```
 python post_analysis.py
 ```
 
-## Universal reaction template extraction tutorial
+## Generic reaction template extraction tutorial
 For further details about the reaction template extraction, please refer to:
 
 scripts/examples.ipynb

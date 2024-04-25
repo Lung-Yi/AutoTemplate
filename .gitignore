@@ -1,5 +1,17 @@
 data/*/*.txt
 data/*/processed_data.pkl
+data_aro_ali_diff/*/*.txt
+data_aro_ali_diff/*/processed_data.pkl
+data_aro_ali_diff/*/reaction.png
+data_10perc/
+data_25perc/
+data_50perc/
+data_75perc/
+data_USPTO_MIT/
+data_USPTO_50k_maziarz/
+data_USPTO_50k_coley/
+data_USPTO_50k_noise/
+data_aro_ali_diff/
 *.processed
 *.failed
 *.xlsx
@@ -11,3 +23,4 @@ diff.txt
 post_analysis_old.py
 debug_test.ipynb
 debug_test.ipynb
+scripts/template_analysis.ipynb

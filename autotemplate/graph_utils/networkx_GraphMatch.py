@@ -130,6 +130,16 @@ def get_atoms_attributes_idx(rdkit_molecule):
         attributes.append((a.GetIdx(), {'Symbol':a.GetSymbol(), 'Charge':a.GetFormalCharge()}))
     return attributes
 
+# def get_atoms_attributes_idx(rdkit_molecule):
+#     """ For distinguishment between aromatic and aliphatic atoms. (For supporting information)"""
+#     attributes = []
+#     for a in rdkit_molecule.GetAtoms():
+#         atom_symbol = a.GetSymbol()
+#         if a.GetIsAromatic():
+#             atom_symbol = atom_symbol.lower()
+#         attributes.append((a.GetIdx(), {'Symbol':atom_symbol, 'Charge':a.GetFormalCharge()}))
+#     return attributes
+
 def get_bonds_attributes_idx(rdkit_molecule):
     attributes = []
     for b in rdkit_molecule.GetBonds():
