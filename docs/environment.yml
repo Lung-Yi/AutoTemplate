@@ -189,4 +189,3 @@ dependencies:
     - webencodings==0.5.1
     - websocket-client==1.6.0
     - zipp==3.15.0
-prefix: /home/lungyi/anaconda3/envs/autotemplate
