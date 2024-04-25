@@ -44,9 +44,11 @@ python auto_process.py \
     --radius 0 \
     --threshold 5 --npus 1
 ```
-NOTE: The default preprocessing function would remove the spectator molecules (help conduct the reaction but do not contribute any atom) in processed reaction SMILES. To keep those molecules in processed reaction SMILES, please add the argument in the above script: `--retain_reagents`.
+NOTE(1): The default preprocessing function would remove the spectator molecules (help conduct the reaction but do not contribute any atom) in processed reaction SMILES. To keep those molecules in processed reaction SMILES, please add the argument in the above script: `--retain_reagents`.
 
-NOTE: We recommend using multiple cpu to accelerate the data preprocessing. Please change this argument: `--ncpus`.
+NOTE(2): If you want to empirically retain the leaving group molecule in the position of the reaction product, please include this argument (but this method merely substitutes the leaving group with hydrogen and may not necessarily yield the correct chemical product): `--balance_product`.
+
+NOTE(3): We recommend using multiple cpu to accelerate the data preprocessing. Please change this argument: `--ncpus`.
 
 ## Examine the preprocessed results.
 ```

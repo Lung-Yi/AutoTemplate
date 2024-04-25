@@ -9,8 +9,10 @@ data_50perc/
 data_75perc/
 data_USPTO_MIT/
 data_USPTO_50k_maziarz/
-data_USPTO_50k_coley/
-data_USPTO_50k_noise/
+data_USPTO_50k_coley/*
+!data_USPTO_50k_coley/USPTO_50k_coley.txt
+!data_USPTO_50k_coley/README.md
+data_USPTO_50k_noise/USPTO_50k_*perc_noise/
 data_aro_ali_diff/
 *.processed
 *.failed
@@ -21,6 +23,5 @@ cgr_teset.ipynb
 difference.py
 diff.txt
 post_analysis_old.py
-debug_test.ipynb
 debug_test.ipynb
 scripts/template_analysis.ipynb

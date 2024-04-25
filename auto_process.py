@@ -9,7 +9,7 @@ import multiprocessing
 from collections import Counter
 from autotemplate.extract_utils import extract_from_rxn_smiles, canon_remap
 from autotemplate.run_utils import ReassignMapping, rdchiralRunText_modified, RemoveReagent, clearIsotope, build_removed_reagents_dict
-from autotemplate.graph_utils import mapping_for_gold_multiple_smiles, find_unique_templates_dict
+from autotemplate.graph_utils import mapping_for_gold_multiple_smiles, find_unique_templates_dict, give_mapnum_for_unmapped_reactant_atoms, balance_rxn_smiles
 
 def count_change(rxn_smiles):
     rea, prod = rxn_smiles.split('>>')
@@ -72,27 +72,6 @@ def remap_one_template(template, target_smiles):
     except:
         return
 
-def give_mapnum_for_unmapped_reactant_atoms(rxn_smiles):
-    """ 
-    Leaving group atoms in reactnat site have no atom mapping number.
-    Try to append atom mapping number for those reactant atoms.
-    """
-    reac, prod = rxn_smiles.split('>>')
-    reac = Chem.MolFromSmiles(reac)
-    prod = Chem.MolFromSmiles(prod)
-    if reac.GetNumAtoms() > prod.GetNumAtoms():
-        reac_map = {i+1 for i in range(reac.GetNumAtoms())}
-        prod_map = {int(atom.GetProp('molAtomMapNumber')) for atom in prod.GetAtoms()}
-        undetermined_map = reac_map.difference(prod_map)
-        for atom in reac.GetAtoms():
-            if not atom.HasProp('molAtomMapNumber'):
-                num = undetermined_map.pop()
-                atom.SetAtomMapNum(num)
-                if not undetermined_map: break
-        return Chem.MolToSmiles(reac) + '>>' + Chem.MolToSmiles(prod)
-    else:
-        return rxn_smiles
-
 def check_reconstruct(template, rxn_smiles, retro = True):
     """Check whether the template obtained from the function "extract_from_rxn_smiles" is True for the original rxn_smiles. """
     reactants, products = rxn_smiles.split('>>')
@@ -131,7 +110,7 @@ if __name__ == '__main__':
                         default=1)
     parser.add_argument('--retain_reagents', action='store_true')
     parser.add_argument('--save_threshold', action='store_true')
-    # parser.add_argument('--verbose', default=False, type=lambda x: (str(x).lower() in ['true','1', 'yes'])) # Whether to print failed prediction information
+    parser.add_argument('--balance_product', action='store_true')
     args = parser.parse_args()
 
     f = open(args.input_file, 'r')
@@ -287,17 +266,19 @@ if __name__ == '__main__':
     for i in range(len(data)):
         rxn_smiles = data[i]['final rxn_smiles']
         if rxn_smiles:
+            if args.balance_product:
+                rxn_smiles = balance_rxn_smiles(rxn_smiles)
             if args.retain_reagents:
                 reagents = id2reagent_dict[data[i]['reaxys id']]
                 if reagents:
-                    rxn_smiles += "."+reagents
+                    rxn_smiles = reagents + "." + rxn_smiles
             g.write(rxn_smiles + '\t' + data[i]['reaxys id'] + '\n')
         else:
             no_processed_smiles = data[i]['rxn_smiles']
             if args.retain_reagents:
                 reagents = id2reagent_dict[data[i]['reaxys id']]
                 if reagents:
-                    no_processed_smiles += "."+reagents
+                    rxn_smiles = reagents + "." + rxn_smiles
             h.write(no_processed_smiles + '\t' + data[i]['reaxys id'] + '\n')
     g.close()
     h.close()
