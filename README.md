@@ -41,7 +41,7 @@ python rxnmapper_mapping.py --input_dir data_reaxys/${RXN} \
     --output_file data/${RXN}/MappingResult_${RXN}.txt
 ```
 
-(2) extract super general reaction templates and apply them on the original reaction
+(2) extract generic reaction templates and apply them on the original reaction
 ```
 python auto_process.py \
     --input_file data/${RXN}/MappingResult_${RXN}.txt \
