@@ -46,7 +46,7 @@ python rxnmapper_mapping.py --input_dir data_reaxys/${RXN} \
 python auto_process.py \
     --input_file data/${RXN}/MappingResult_${RXN}.txt \
     --radius 0 \
-    --threshold 5 --npus 1
+    --threshold 5 --ncpus 1
 ```
 NOTE(1): The default preprocessing function would remove the spectator molecules (help conduct the reaction but do not contribute any atom) in processed reaction SMILES. To keep those molecules in processed reaction SMILES, please add the argument in the above script: `--retain_reagents`.
 

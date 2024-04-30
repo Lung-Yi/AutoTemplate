@@ -6,6 +6,7 @@ import pandas as pd
 from tqdm import tqdm
 
 input_data_path = "../data_reaxys"
+query_template = "{\"fileName\":\"#####\",\"version\":\"1.0\",\"content\":{\"id\":\"root\",\"facts\":[{\"id\":\"Reaxys487\",\"fields\":[{\"value\":\"$$$$$\",\"boundOperator\":\"op_num_equal\",\"id\":\"RX.ID\",\"displayName\":\"Reaction ID\"}],\"fieldsLogicOperator\":\"AND\",\"exist\":false,\"bio\":false}],\"exist\":false,\"bio\":false}}"
 
 for reaction_type in tqdm(os.listdir(input_data_path)):
     reaction_dtr = os.path.join(input_data_path, reaction_type)
@@ -22,6 +23,11 @@ for reaction_type in tqdm(os.listdir(input_data_path)):
                 pass
         else:
             reaction_id_set = sorted(list(reaction_id_set))
-            reaction_id_set = [rxn_id + "\n" for rxn_id in reaction_id_set]
-            with open(os.path.join(reaction_dtr, "{}_reaction_id.txt".format(reaction_type)), "w") as f:
-                f.writelines(reaction_id_set)
+            for i in range(len(reaction_id_set) // 5000 + 1):
+                reaction_ids = ";".join(reaction_id_set[i*5000: (i+1)*5000])
+                file_name = f"{reaction_type}_query_{i}.json"
+                query_content = query_template.replace("#####", file_name)
+                query_content = query_content.replace("$$$$$", reaction_ids)
+
+                with open(os.path.join(reaction_dtr, file_name), "w") as f:
+                    f.write(query_content)
