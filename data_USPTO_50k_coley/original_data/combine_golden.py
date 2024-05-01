@@ -10,5 +10,5 @@ for i in range(len(input_df)):
     line = rxn_smiles + "\t" + reaction_id + "_" + str(i) + "\n"
     output_lines.append(line)
 
-with open("USPTO_50k_coley.txt", "w") as g:
+with open("../USPTO_50k_coley.txt", "w") as g:
     g.writelines(output_lines)

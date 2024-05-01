@@ -96,6 +96,8 @@ def rdchiralRunText_modified(reaction_smarts, reactant_smiles, append_reagent=Fa
         else:
             reagents_list = []
     reactants = rdchiralReactants(reactant_smiles)
+    Chem.Kekulize(reactants.reactants, clearAromaticFlags=True)
+    Chem.Kekulize(reactants.reactants_achiral, clearAromaticFlags=True)
     # Run naive RDKit on ACHIRAL version of molecules
     outcomes = rxn.rxn.RunReactants((reactants.reactants_achiral,))
     # mol = Chem.MolFromSmiles(reactant_smiles)

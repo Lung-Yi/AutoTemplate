@@ -17,6 +17,45 @@ USE_STEREOCHEMISTRY = True
 MAXIMUM_NUMBER_UNMAPPED_PRODUCT_ATOMS = 5
 INCLUDE_ALL_UNMAPPED_REACTANT_ATOMS = True
 
+def map2label(labels):
+    map2label = dict ()
+    for label in labels:
+        mapnum = re.search(r'\[(.*?)\:(.*?)\]', label).group(2)
+        charge_list = re.findall(r'[+-]\d+', label)
+        if charge_list:
+            charge = charge_list[0]
+        else:
+            charge = "0"
+        map2label.update({mapnum: (label, charge)})
+    return map2label
+
+def neutralize_reactant_fragments(reactant_fragments, product_fragments):
+    """If the product atoms are charged while the corresponding reactant atoms are uncharged, 
+    it is necessary to label the extracted reactant atoms in the template as uncharged. """
+    r_labels = re.findall(r'\[[^\[\]:]*:[^\[\]]*\]', reactant_fragments)
+    p_labels = re.findall(r'\[[^\[\]:]*:[^\[\]]*\]', product_fragments)
+    if (not p_labels) or (not r_labels):
+        return reactant_fragments, product_fragments
+
+    new_reactant_fragments = reactant_fragments
+
+    r_map2label = map2label(r_labels)
+    p_map2label = map2label(p_labels)
+
+    for mapnum, p_values in p_map2label.items():
+        p_label, p_charge = p_values
+        r_values = r_map2label.get(mapnum)
+        if r_values == None:
+            continue
+        else:
+            r_label, r_charge = r_values
+            if (p_charge != "0") and (r_charge == "0"):
+                new_r_label = r_label.replace(":", ";+0:")
+                new_reactant_fragments = new_reactant_fragments.replace(r_label, new_r_label)
+
+    return new_reactant_fragments, product_fragments
+
+
 def canon_remap(smiles, return_NumAtom=False, iso = False):
     # copy mol before changing it
     mol = Chem.MolFromSmiles(smiles)
@@ -447,6 +486,7 @@ def extract_from_rxn_smiles(rxn_smiles: str, radius = 0):
             products[i] = AllChem.RemoveHs(products[i]) # *might* not be safe
         [Chem.SanitizeMol(mol) for mol in reactants + products] # redundant w/ RemoveHs
         [mol.UpdatePropertyCache() for mol in reactants + products]
+        [Chem.Kekulize(mol, clearAromaticFlags=True) for mol in reactants + products]
     except Exception as e:
         # can't sanitize -> skip
         print(e)
@@ -525,6 +565,7 @@ def extract_from_rxn_smiles(rxn_smiles: str, radius = 0):
         return None
 
     # Put together and canonicalize (as best as possible)
+    reactant_fragments, product_fragments = neutralize_reactant_fragments(reactant_fragments, product_fragments)
     rxn_string = '{}>>{}'.format(reactant_fragments, product_fragments)
     rxn_canonical = canonicalize_transform(rxn_string)
     # Change from inter-molecular to intra-molecular 

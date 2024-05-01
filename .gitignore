@@ -1,5 +1,7 @@
 data/*/*.txt
 data/*/processed_data.pkl
+data/*/*
+!data/*/all_templates_used.csv
 data_aro_ali_diff/*/*.txt
 data_aro_ali_diff/*/processed_data.pkl
 data_aro_ali_diff/*/reaction.png

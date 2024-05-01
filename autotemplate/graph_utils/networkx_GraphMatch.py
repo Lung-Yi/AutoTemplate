@@ -176,7 +176,7 @@ def SmartsMolWithFormalCharge(smarts):
     smarts_convert = [x for x in smarts_convert if ':' in x]
     formalcharge_dict = dict()
     for symbol in smarts_convert:
-        charge = re.search('([-+]+[1-9]?)', symbol)
+        charge = re.search('([-+]+[0-9]?)', symbol)
         if charge:
             mapnum = int(re.search('\:([0-9]+)', symbol).group()[1:])
             formalcharge_dict.update({mapnum: int(charge.group())})
