@@ -142,7 +142,7 @@ if __name__ == '__main__':
         print("Third task")
         change_mapping_index = sorted(random.sample(effective_index_list, num_noisy))
         change_mapping_lines = [input_lines[i] for i in change_mapping_index]
-        results = mp_wrapper(change_atom_lines, "random_change_atom_mapping", args.ncpus)
+        results = mp_wrapper(change_mapping_lines, "random_change_atom_mapping", args.ncpus)
         for change_mapping_id, result in zip(change_mapping_index, results):
             input_lines[change_mapping_id] = result
 

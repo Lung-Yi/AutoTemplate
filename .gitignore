@@ -16,6 +16,8 @@ data_USPTO_50k_coley/*
 !data_USPTO_50k_coley/original_data
 !data_USPTO_50k_coley/README.md
 data_USPTO_50k_noise/USPTO_50k_*perc_noise/
+data_USPTO_50k_noise/
+!data_USPTO_50k_noise/scripts/prepare_noise_data.py
 data_aro_ali_diff/
 *.processed
 *.failed
