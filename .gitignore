@@ -23,6 +23,7 @@ data_aro_ali_diff/
 *.failed
 *.xlsx
 job/
+docs/competing_templates
 analyze_results.csv
 cgr_teset.ipynb
 difference.py
