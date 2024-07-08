@@ -1,7 +1,8 @@
 # AutoTemplate: automatically reaction data curation using reaction template
 This is a data-preprocess tool that curates the reaction SMILES.
 
-The manuscript of this repository is in preparation.
+The manuscript of this can be freely accessed on:
+https://jcheminf.biomedcentral.com/articles/10.1186/s13321-024-00869-2
 
 ![alt text](docs/abstract_TOC.svg)
 
@@ -63,3 +64,21 @@ python post_analysis.py
 For further details about the reaction template extraction, please refer to:
 
 scripts/examples.ipynb
+
+## Citation
+If you find this work useful, please cite this paper:
+```
+@article{Chen2024autotemplate,
+   author = {Chen, Lung-Yi and Li, Yi-Pei},
+   title = {AutoTemplate: enhancing chemical reaction datasets for machine learning applications in organic chemistry},
+   journal = {Journal of Cheminformatics},
+   volume = {16},
+   number = {1},
+   pages = {74},
+   ISSN = {1758-2946},
+   DOI = {10.1186/s13321-024-00869-2},
+   url = {https://doi.org/10.1186/s13321-024-00869-2},
+   year = {2024},
+   type = {Journal Article}
+}
+```
