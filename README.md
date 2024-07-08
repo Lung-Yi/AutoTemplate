@@ -1,7 +1,7 @@
 # AutoTemplate: automatically reaction data curation using reaction template
 This is a data-preprocess tool that curates the reaction SMILES.
 
-The manuscript of this can be freely accessed on:
+The manuscript of this research can be freely accessed on:
 https://jcheminf.biomedcentral.com/articles/10.1186/s13321-024-00869-2
 
 ![alt text](docs/abstract_TOC.svg)
