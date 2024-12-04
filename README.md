@@ -4,11 +4,13 @@ This is a data-preprocess tool that curates the reaction SMILES.
 The manuscript of this research can be freely accessed on:
 https://jcheminf.biomedcentral.com/articles/10.1186/s13321-024-00869-2
 
-![alt text](docs/abstract_TOC.svg)
+<!-- ![alt text](docs/abstract_TOC.svg) -->
+<img src="docs/abstract_TOC.svg" style="width: 100%; height: auto;">
 
 The experimental results for selected Reaxys dataset is:
 
-![alt text](docs/output.svg)
+<!-- ![alt text](docs/output.svg) -->
+<img src="docs/output.svg" style="width: 100%; height: auto;">
 
 ## Installation
 1. `git clone https://github.com/Lung-Yi/AutoTemplate.git`
